@@ -1,4 +1,5 @@
 package com.sg.vendingmachine.ui;
 
-public class UserIOConsoleImpl {
+public class
+UserIOConsoleImpl {
 }
