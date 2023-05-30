@@ -1,0 +1,3 @@
+package com.sg.vendingmachine.service
+
+class vendingmachineServiceLayerImpl : vendingmachineServiceLayer
