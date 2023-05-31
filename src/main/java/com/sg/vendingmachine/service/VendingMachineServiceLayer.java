@@ -1,10 +1,8 @@
 package com.sg.vendingmachine.service;
 
 import com.sg.vendingmachine.dto.Change;
-import com.sg.vendingmachine.dto.Product;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
 public interface VendingMachineServiceLayer {
 
