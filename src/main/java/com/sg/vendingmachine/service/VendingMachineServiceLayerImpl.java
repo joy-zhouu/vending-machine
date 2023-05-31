@@ -1,10 +1,13 @@
 package com.sg.vendingmachine.service;
 
+import com.sg.vendingmachine.dao.VendingMachineAuditDao;
 import com.sg.vendingmachine.dto.Change;
+import com.sg.vendingmachine.dto.Product;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VendingMachineServiceLayerImpl implements VendingMachineServiceLayer {
 

@@ -18,6 +18,8 @@ public class Change {
         this.pennies = amount.divide(new BigDecimal("1")).intValue();
     }
 
+    //we don't need setters because we use constructor to initialize the properties.
+
     public int getQuarters() {
         return quarters;
     }
