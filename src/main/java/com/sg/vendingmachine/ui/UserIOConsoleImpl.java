@@ -36,17 +36,26 @@ public class UserIOConsoleImpl implements UserIO {
     return num;
   }
 
+
   @Override
   public int readInt(String msgPrompt) {
-    while (true) {
+    boolean invalidInput = true;
+    int num = 0;
+    while (invalidInput) {
       try {
+        // print the message msgPrompt (ex: asking for the # of cats!)
         String stringValue = this.readString(msgPrompt);
-        return Integer.parseInt(stringValue);
+        // Get the input line, and try and parse
+        num = Integer.parseInt(stringValue); // if it's 'bob' it'll break
+        invalidInput = false; // or you can use 'break;'
       } catch (NumberFormatException e) {
-        this.print("Invalid input. Please enter a valid integer.");
+        // If it explodes, it'll go here and do this.
+        this.print("Input error. Please try again.");
       }
     }
+    return num;
   }
+
 
   @Override
   public int readInt(String msgPrompt, int min, int max) {
@@ -57,6 +66,7 @@ public class UserIOConsoleImpl implements UserIO {
 
     return result;
   }
+
 
   @Override
   public long readLong(String msgPrompt) {
@@ -69,6 +79,7 @@ public class UserIOConsoleImpl implements UserIO {
     }
   }
 
+
   @Override
   public long readLong(String msgPrompt, long min, long max) {
     long result;
@@ -78,6 +89,7 @@ public class UserIOConsoleImpl implements UserIO {
 
     return result;
   }
+
 
   @Override
   public float readFloat(String msgPrompt) {
@@ -90,6 +102,7 @@ public class UserIOConsoleImpl implements UserIO {
     }
   }
 
+
   @Override
   public float readFloat(String msgPrompt, float min, float max) {
     float result;
@@ -99,6 +112,7 @@ public class UserIOConsoleImpl implements UserIO {
 
     return result;
   }
+
 
   @Override
   public double readDouble(String msgPrompt) {
@@ -110,6 +124,7 @@ public class UserIOConsoleImpl implements UserIO {
       }
     }
   }
+
 
   @Override
   public double readDouble(String msgPrompt, double min, double max) {
