@@ -1,10 +1,14 @@
 package com.sg.vendingmachine.service;
 
+import com.sg.vendingmachine.dao.VendingMachineAuditDao;
+import com.sg.vendingmachine.dao.VendingMachineDao;
 import com.sg.vendingmachine.dto.Change;
+import com.sg.vendingmachine.dto.Product;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VendingMachineServiceLayerImpl implements VendingMachineServiceLayer {
 
@@ -55,7 +59,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
 
     @Override
     public Change calculateChange(BigDecimal amount, Product product) {
-        BigDecimal change = amount.substract(product.getPrice());
+        BigDecimal change = amount.subtract(product.getPrice());
         return new Change(change);
     }
 
@@ -74,7 +78,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
     private void validateProductInStock(String productId) throws VendingMachineNoItemInventoryException {
         List<String> ids = dao.getAllProductIds();
         Product product = dao.getProduct(productId);
-        if (!ds.contains(productId) || (product.getItemsInStock() < 1 )) {
+        if (!ids.contains(productId) || (product.getItemsInStock() < 1 )) {
             throw new VendingMachineNoItemInventoryException("No more items");
         }
     }
