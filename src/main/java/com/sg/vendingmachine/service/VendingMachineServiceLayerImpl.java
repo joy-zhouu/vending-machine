@@ -64,7 +64,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
     }
 
     @Override
-    public void updateProductSale(Product product) throws VendingMachineNoItemInventoryException {
+    public void updateProductSale(Product product) throws VendingMachineNoItemInventoryException, VendingMachinePersistenceException {
         if (product.getItemsInStock() > 0) {
             product.setItemsInStock(product.getItemsInStock() - 1);
         } else {
