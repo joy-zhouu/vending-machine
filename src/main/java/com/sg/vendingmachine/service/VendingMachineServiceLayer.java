@@ -18,6 +18,6 @@ public interface VendingMachineServiceLayer {
 
     public Change calculateChange(BigDecimal amount, Product product);
 
-    public void updateProductSale(Product product) throws VendingMachineNoItemInventoryException;
+    public void updateProductSale(Product product) throws VendingMachineNoItemInventoryException, VendingMachinePersistenceException;
 
 }
