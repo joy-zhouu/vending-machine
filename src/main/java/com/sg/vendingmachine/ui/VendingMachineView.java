@@ -1,6 +1,6 @@
 package com.sg.vendingmachine.ui;
 
-import com.sg.vendingmachine.dto.Item;
+import com.sg.vendingmachine.dto.Product;
 
 import java.util.List;
 
@@ -10,18 +10,18 @@ public class VendingMachineView {
     this.io = io;
   }
 
-  public int printMenu(List<Item> itemList) {
+  public int printMenu(List<Product> productList) {
     io.print("Welcome to the Vending Machine!");
     io.print("No     Product          Price");
     io.print("-----------------------------\n");
 
     // Iterate through list of items and display them and their prices
-    for (Item currentItem: itemList) {
-      int index = itemList.indexOf(currentItem);
-      String itemInfo = String.format(index + "     %s          $%s",
-              currentItem.getItemName(),
-              currentItem.getItemPrice());
-      io.print(itemInfo);
+    for (Product currentProduct: productList) {
+      int index = productList.indexOf(currentProduct);
+      String productInfo = String.format(index + "     %s          $%s",
+              currentProduct.getProductName(),
+              currentProduct.getPrice());
+      io.print(productInfo);
     }
 
     return io.readInt("Please enter how much money you have (in dollars)");
