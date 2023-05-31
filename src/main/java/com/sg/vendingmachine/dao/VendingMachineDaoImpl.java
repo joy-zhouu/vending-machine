@@ -20,67 +20,38 @@ public class VendingMachineDaoImpl implements VendingMachineDao {
         PRODUCTS_FILE = productsTextFile;
     }
 
-
-    /**
-     * @param productId
-     * @param product
-     * @return
-     */
     @Override
     public Product addProduct(String productId, Product product) {
         Product prevProduct = products.put(productId, product);
         return prevProduct;
     }
 
-    /**
-     * @return
-     */
     @Override
     public List<Product> getAllProducts() {
         return new ArrayList<Product>(products.values());
     }
 
-    /**
-     * @return
-     */
     @Override
     public List<String> getAllProductIds() {
         return new ArrayList<>(products.keySet());
     }
 
-    /**
-     * @param productId
-     * @return
-     */
     @Override
     public Product getProduct(String productId) {
         return products.get(productId);
     }
 
-    /**
-     * @param productId
-     * @param product
-     * @return
-     */
     @Override
     public Product updateProduct(String productId, Product product) {
         return products.replace(productId, product);
     }
 
-    /**
-     * @param productId
-     * @return
-     */
     @Override
     public Product removeProduct(String productId) {
         Product removedProduct = products.remove(productId);
         return removedProduct;
     }
 
-    /**
-     * @return
-     * @throws VendingMachinePersistenceException
-     */
    // method that reads the roster file into memory
     @Override
     public Map<String, Product> loadProductsFromFile() throws VendingMachinePersistenceException {
@@ -114,9 +85,6 @@ public class VendingMachineDaoImpl implements VendingMachineDao {
         return products;
     }
 
-    /**
-     * @throws VendingMachinePersistenceException
-     */
 //    took code from ClassRosterServiceLayer
     @Override
     public void writeProductsToFile() throws VendingMachinePersistenceException {
