@@ -31,7 +31,7 @@ class VendingMachineDaoImplTest {
         Product chips = new Product("1","Chips",new BigDecimal("2.00"),10);
 //      Add the products to the DAO
         testDao.addProduct(chips.getProductId(), chips);
-//        Get the Student from the DAO
+//        Get the Product from the DAO
         Product retrievedProduct= testDao.getProduct(chips.getProductId());
 
         // Check the data is equal
