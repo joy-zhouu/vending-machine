@@ -22,7 +22,7 @@ public class VendingMachineView {
   }
 
   public void displayProduct(Product product) {
-    io.print(product.getProductId() + "\t" + product.getProductName());
+    io.print(product.getProductId() + "\t" + product.getProductName() + "\t\t" + product.getPrice());
   }
 
   public BigDecimal promptUserMoneyInput() {
