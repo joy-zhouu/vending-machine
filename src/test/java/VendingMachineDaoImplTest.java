@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileWriter;
 import java.math.BigDecimal;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -55,6 +57,7 @@ class VendingMachineDaoImplTest {
 
     @Test
     void updateProduct() {
+
     }
 
     @Test
@@ -62,7 +65,18 @@ class VendingMachineDaoImplTest {
     }
 
     @Test
-    void loadProductsFromFile() {
+    void loadProductsFromFile() throws Exception{
+        System.out.println("loadProductsFromFile");
+        BigDecimal bd = new BigDecimal("1.50");
+        Product p1 = new Product("3", "Chips", bd, 10);
+        bd = new BigDecimal("2.35");
+        Product p2 = new Product("5", "Soda", bd, 5);
+        Map<String, Product> result = testDao.loadProductsFromFile();
+        Map<String, Product> expResult = new TreeMap<>();
+        expResult.put("1", p1);
+        expResult.put("2", p2);
+
+        assertEquals(expResult, result, "Test Loading Products");
     }
 
     @Test
