@@ -1,3 +1,5 @@
+package com.sg.vendingmachine.dao;
+
 import com.sg.vendingmachine.dao.VendingMachineDao;
 import com.sg.vendingmachine.dao.VendingMachineDaoImpl;
 import com.sg.vendingmachine.dto.Product;
