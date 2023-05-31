@@ -1,6 +1,7 @@
 import com.sg.vendingmachine.dao.VendingMachineDao;
 import com.sg.vendingmachine.dao.VendingMachineDaoImpl;
 import com.sg.vendingmachine.dto.Product;
+import com.sg.vendingmachine.service.VendingMachinePersistenceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class VendingMachineDaoImplTest {
     VendingMachineDao testDao;
-
+    public VendingMachineDaoImplTest() {
+    }
     @BeforeEach
     public void setUp() throws Exception{
         String testFile = "testProducts.txt";
@@ -23,16 +25,15 @@ class VendingMachineDaoImplTest {
         testDao = new VendingMachineDaoImpl(testFile);
     }
 
-    public VendingMachineDaoImplTest() {
-    }
-
     @Test
 //    addProduct and getProduct being tested
-    void addGetProduct() {
+    public void addGetProduct() throws VendingMachinePersistenceException {
 //        create a product
         Product chips = new Product("1","Chips",new BigDecimal("2.00"),10);
 //      Add the products to the DAO
         testDao.addProduct(chips.getProductId(), chips);
+
+//        testDao.addProduct("1", chips);
 //        Get the Student from the DAO
         Product retrievedProduct= testDao.getProduct(chips.getProductId());
 
