@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileWriter;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -17,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class VendingMachineDaoImplTest {
     VendingMachineDao testDao;
+
     public VendingMachineDaoImplTest() {
     }
     @BeforeEach
@@ -59,7 +61,7 @@ class VendingMachineDaoImplTest {
     }
 
     @Test
-    void updateProduct() {
+    void updateProduct() throws VendingMachinePersistenceException {
         System.out.println("updateProduct");
         BigDecimal bd = new BigDecimal("1.50");
         Product p1 = new Product("3", "Chips", bd, 10);
@@ -81,16 +83,43 @@ class VendingMachineDaoImplTest {
     }
 
     @Test
-    void removeProduct() {
+    void removeProduct() throws VendingMachinePersistenceException {
+        System.out.println("removeProduct");
+        BigDecimal bd = new BigDecimal("2.50");
+        Product p1 = new Product("1", "Cake", bd, 9);
+        bd = new BigDecimal("1.05");
+        Product p2 = new Product("2", "Water", bd, 12);
+        testDao.addProduct(p1.getProductId(), p1);
+        testDao.addProduct(p2.getProductId(), p2);
+
+        Product removedProduct = testDao.removeProduct(p1.getProductId());
+        assertEquals(removedProduct, p1, "The removed product");
+        List<Product> result = testDao.getAllProducts();
+        assertNotNull(result, "The list of products must not be null.");
+        assertEquals(1, result.size(), "List of products");
+
+        removedProduct = testDao.removeProduct(p2.getProductId());
+        assertEquals(removedProduct, p2, "The removed product");
+
+        result = testDao.getAllProducts();
+        assertEquals(0, result.size(), "List of products");
+
+        Product retrievedProduct = testDao.getProduct(p1.getProductId());
+        assertNull(retrievedProduct, "Cake was removed, should be null");
+        retrievedProduct = testDao.getProduct(p2.getProductId());
+        assertNull(retrievedProduct, "Water was removed, should be null");
     }
 
     @Test
     void loadProductsFromFile() throws Exception{
         System.out.println("loadProductsFromFile");
         BigDecimal bd = new BigDecimal("2.50");
-        Product p1 = new Product("1", "Cake", bd, 8);
+        Product p1 = new Product("1", "Cake", bd, 9);
         bd = new BigDecimal("2.35");
         Product p2 = new Product("5", "Soda", bd, 5);
+        testDao.addProduct(p1.getProductId(), p1);
+        testDao.addProduct(p2.getProductId(), p2);
+
         Map<String, Product> result = testDao.loadProductsFromFile();
         Map<String, Product> expResult = new TreeMap<>();
         expResult.put("1", p1);
@@ -100,6 +129,18 @@ class VendingMachineDaoImplTest {
     }
 
     @Test
-    void writeProductsToFile() {
+    void writeProductsToFile() throws Exception{
+        System.out.println("writeProductsToFile");
+        BigDecimal bd = new BigDecimal("2.35");
+        Product p1 = new Product("5", "Soda", bd, 5);
+        testDao.addProduct(p1.getProductId(), p1);
+
+        testDao.writeProductsToFile();
+        Map<String, Product> result = testDao.loadProductsFromFile();
+        Map<String, Product> expResult = new TreeMap<>();
+        expResult.put("5", p1);
+
+        assertEquals(expResult, result, "Test Writing Products");
     }
+
 }
