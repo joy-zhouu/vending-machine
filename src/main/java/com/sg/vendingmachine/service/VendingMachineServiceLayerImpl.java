@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 public class VendingMachineServiceLayerImpl implements VendingMachineServiceLayer {
 
 
@@ -22,8 +25,27 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
     }
 
 
+
     @Override
     public Map<String, Product> loadProductsInStock() throws VendingMachinePersistenceException {
+        Map<String, Product> productsInStock = dao.loadProductsFromFile()
+                .values()
+                .stream()
+                .filter(p -> p.getItemsInStock() > 0)
+                .peek(p -> {
+                    try {
+                        auditDao.writeAuditEntry("Product Id: " + p.getProductId());
+                    } catch (VendingMachinePersistenceException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .collect(Collectors.toMap(Product::getProductId, Function.identity()));
+
+        return productsInStock;
+    }
+
+    // old ways before lamdas and streams
+  /*  public Map<String, Product> loadProductsInStock() throws VendingMachinePersistenceException {
         Map<String, Product> productsInStock = new HashMap<>();
         for (Product p: dao.loadProductsFromFile().values()) {
             if (p.getItemsInStock() < 1) {
@@ -33,7 +55,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             }
         }
         return productsInStock;
-    }
+    }*/
 
     @Override
     public void saveProductsList() throws VendingMachinePersistenceException {
