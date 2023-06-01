@@ -21,8 +21,10 @@ public class VendingMachineDaoImpl implements VendingMachineDao {
     }
 
     @Override
-    public Product addProduct(String productId, Product product) {
+    public Product addProduct(String productId, Product product) throws VendingMachinePersistenceException {
+        loadProductsFromFile();
         Product prevProduct = products.put(productId, product);
+        writeProductsToFile();
         return prevProduct;
     }
 
