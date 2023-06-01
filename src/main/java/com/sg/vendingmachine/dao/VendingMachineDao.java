@@ -12,7 +12,7 @@ DAO- responsible for persistence and retrieval of Product data
  */
 public interface VendingMachineDao {
 //    CRUD operation methods:
-    Product addProduct(String productId, Product product);
+    Product addProduct(String productId, Product product) throws VendingMachinePersistenceException;
     List<Product> getAllProducts();
     List<String> getAllProductIds();
 
